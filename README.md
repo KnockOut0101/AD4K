@@ -35,3 +35,12 @@ Mechanics
    -RPG concepts from PERSONA or POKEMON, where the enemy has a chance of joining your ranks.
    -Concept to make various character of the same gernre (MEDIA) fight each ohter, ANIME, DISTINCT GAME WORLDS.
    -Players choosing multiple power-ups to defeat the other players, but can only use one at a time.
+   -Magicka (The Series) Spell based system, where spells are based on the components you create.
+   -RPG Mechanics but with a mix of concept of the genre, Like Fallout series open-world concept with RPG elements, 
+    Persona Series or Shin megame tensei series with RPG elements but including casual gameplay with it as well.
+   -Legend of Zelda (Switch Series) Physics and Rune Mechanic, along with the Fusion mechanic from Tears of the Kingdom.
+   -Turn Based Combat like in Fire Emblem series.
+Story
+   - Playing the story in the way it would end in a linear fashion but you can reach the objective however you want. Example e.g. Skyrim, Fallout etc.
+   - Deep lore with personal choices (Morality system) where the player takes up the choices and based on the choices you get a different (yet linear) ending. e.g. Witcher 3, Infamous Series.
+   - Story where everything you do affects the progression and the story. e.g. Undertale, Dishonored Series.
