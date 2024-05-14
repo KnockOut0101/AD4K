@@ -1,27 +1,26 @@
 <h1 class = "title">{{title}}</h1>
 
+<button onclick="executeRound">Execute Round</button>
+<button onclick="startGame">Start Game</button>
+<button onclick="resetGame">Reset Game</button>
+<div>
+  <div *ngFor="let player of players; index as i">
+    <div>{{ player.name }}</div>
+    <div><label>Health:</label>{{ player.champion.health }}</div>
+    <div><label>Stamina:</label>{{ player.champion.stamina }}</div>
 
-<table>
-  <th></th><th></th><th></th> <th class = "Player">Player 1</th> <th></th>  <th></th><th></th><th class = "Player">Player 2</th><th></th><th></th>
-  <tr>
-    <td></td><td></td><td></td> <td>{{player_1}}</td> <td></td>   <td></td><td></td><td>{{player_2}}</td><td></td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td></td> <td>Health</td> <td>{{player_1_health}}</td>   <td></td> <td>{{player_2_health}}</td> <td>Health</td> <td></td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td></td> <td>Stamina</td> <td>{{player_1_health}}</td>   <td></td> <td>{{player_2_health}}</td> <td>Stamina</td> <td></td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td>Move Slot</td><td></td> <td>{{player_1_move_card_number}}</td>   <td></td><td></td> <td>{{player_2_move_card_number}}</td> <td>Move Slot</td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td>Mod Slot</td><td></td> <td>{{player_1_mod_card_number}}</td>   <td></td><td></td><td>{{player_2_mod_card_number}}</td> <td>Mod Slot</td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td></td><td></td> <td></td>   <td></td> <td></td> <td></td> <td></td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td></td><td></td> <td></td>   <td></td> <td></td> <td></td> <td></td><td></td>
-  </tr>
-</table>
+    <div>
+      <div>{{ game.player[i].modSlot }}</div>
+      <div>{{ game.player[i].moveSlot }}</div>
+    </div>
+
+    <div>
+      <label *ngFor="let card of player.hand; index as cardIndex" >
+        <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === game.player[i].modSlot || cardIndex === game.player[i].moveSlot" />
+        {{ card.name }}
+      </label>
+    </div>
+
+    <label>Deck Size: {{player.deck.length}}</label>
+  </div>
+</div>
