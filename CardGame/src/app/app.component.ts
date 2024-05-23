@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PLAYER } from './components/player/player.class';
-import { CHAMPION } from './components/champion/champion.class';
-import { CARD } from './components/card/card.class';
+import { PLAYER } from './Components/player/player.class';
+import { CHAMPION } from './Components/champion/champion.class';
+import { CARD } from './Components/card/card.class';
 import { DECK_BUILDER } from './engine/deck.builder';
 
 @Component({
@@ -25,7 +25,8 @@ export class AppComponent implements OnInit
     }
   }
 
-  private createPlayer(name: string): PLAYER {
+  private createPlayer(name: string): PLAYER 
+  {
     const temp = new PLAYER();
     temp.name = name;
     temp.deck = DECK_BUILDER.buildDeck(this.decksize);
@@ -35,19 +36,23 @@ export class AppComponent implements OnInit
     return temp;
   }
 
-  public startGame() {
+  public startGame() 
+  {
     // TODO fill this out
   }
 
-  public executeRound() {
+  public executeRound() 
+  {
     // TODO fill this out
   }
 
-  public resetGame() {
+  public resetGame() 
+  {
     // TODO fill this out
   }
 
-  public updatePlayerChoice() {
+  public updatePlayerChoice() 
+  {
     // TODO fill this out
   }
 }
