@@ -6,8 +6,7 @@ import { STATE } from "./game.definitions";
 export class GAME {
   private playersList: Array<PLAYER>;
   private deckSize: number = 0;
-
-  public gameState: STATE = STATE.NONE;
+  private gameState: STATE = STATE.NONE;
 
   constructor(playerCount: number, deckSize: number) {
     this.playersList = [];
@@ -61,6 +60,10 @@ export class GAME {
 
   private set state(newState: STATE) {
     this.gameState = newState;
+  }
+
+  get state() {
+    return this.gameState;
   }
 
   get players() {
