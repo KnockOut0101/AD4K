@@ -4,19 +4,19 @@
 <button onclick="startGame">Start Game</button>
 <button onclick="resetGame">Reset Game</button>
 <div>
-  <div *ngFor="let player of players; index as i">
+  <div *ngFor="let player of game.players; index as i">
     <div>{{ player.name }}</div>
     <div><label>Health:</label>{{ player.champion.health }}</div>
     <div><label>Stamina:</label>{{ player.champion.stamina }}</div>
 
     <div>
-      <div>{{ game.player[i].modSlot }}</div>
-      <div>{{ game.player[i].moveSlot }}</div>
+      <div>{{ player.modSlot }}</div>
+      <div>{{ player.moveSlot }}</div>
     </div>
 
     <div>
       <label *ngFor="let card of player.hand; index as cardIndex" >
-        <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === game.player[i].modSlot || cardIndex === game.player[i].moveSlot" />
+        <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === player.modSlot || cardIndex === player.moveSlot" />
         {{ card.name }}
       </label>
     </div>

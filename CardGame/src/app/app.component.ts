@@ -1,58 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { PLAYER } from './Components/player/player.class';
-import { CHAMPION } from './Components/champion/champion.class';
-import { CARD } from './Components/card/card.class';
-import { DECK_BUILDER } from './engine/deck.builder';
+import { GAME } from './engine/game.class';
+import { STATE } from './engine/game.definitions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit 
-{
+export class AppComponent implements OnInit {
   public title = 'CardGame';
-  public players: Array<PLAYER> = [];
+  public game: GAME;
 
-  private decksize = 25;
+  ngOnInit(): void {
+    this.game = new GAME(2, 25);
 
-  ngOnInit(): void 
-  {
-    for (let i = 0; i < 2; i++) {
-      this.players.push(
-        this.createPlayer('Player ' + (i + 1))
-      );
+    this.main();
+  }
+
+  public main() {
+    while(this.game.state !== STATE.EXIT) {
+      this.game.run();
     }
-  }
-
-  private createPlayer(name: string): PLAYER 
-  {
-    const temp = new PLAYER();
-    temp.name = name;
-    temp.deck = DECK_BUILDER.buildDeck(this.decksize);
-    temp.champion = new CHAMPION();
-    temp.champion.name = name + ' Champion';
-    
-    return temp;
-  }
-
-  public startGame() 
-  {
-    // TODO fill this out
-  }
-
-  public executeRound() 
-  {
-    // TODO fill this out
-  }
-
-  public resetGame() 
-  {
-    // TODO fill this out
-  }
-
-  public updatePlayerChoice() 
-  {
-    // TODO fill this out
   }
 }
