@@ -5,10 +5,10 @@ import { STATE } from "./game.definitions";
 
 export class GAME {
   private playersList: Array<PLAYER>;
-  private deckSize: number;
+  private deckSize: number = 0;
   private gameState: STATE = STATE.NONE;
 
-  constructor(playerCount: number, deckSize = 0) {
+  constructor(playerCount: number, deckSize: number) {
     this.playersList = [];
     this.deckSize = deckSize;
 

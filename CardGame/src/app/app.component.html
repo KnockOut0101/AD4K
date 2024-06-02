@@ -20,7 +20,7 @@
 
     <div>
       <label *ngFor="let card of player.hand; index as cardIndex" >
-        <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === game.player[i].modSlot || cardIndex === game.player[i].moveSlot" />
+        <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === player.modSlot || cardIndex === player.moveSlot" />
         {{ card.name }}
       </label>
     </div>
