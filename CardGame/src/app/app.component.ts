@@ -18,8 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   public main() {
-    while(this.game.state !== STATE.EXIT) {
+     
       this.game.run();
-    }
   }
 }
