@@ -1,17 +1,21 @@
-<h1 class = "title">{{title}}</h1>
-
-<button onclick="executeRound">Execute Round</button>
-<button onclick="startGame">Start Game</button>
-<button onclick="resetGame">Reset Game</button>
-<div>
-  <div *ngFor="let player of players; index as i">
+<h1 class = "text-xl text-blue-400 text-center bg-blue-900 shadow-2xl shadow-blue-950 ">{{title}}</h1>
+<body class="bg-cyan-300">
+<nav>
+  <div class="flex justify-between p-4 bg-cyan-700 rounded-full hover:bg-cyan-500">
+    <button onclick="executeRound" class="p-2 bg-amber-900 text-red-600 shadow-red-600 rounded-3xl font-bold hover:bg-amber-400 hover:ring-amber-700 hover:ring-4 hover:text-red-800">Execute Round</button>
+    <button onclick="startGame" class="p-2 bg-emerald-900 text-blue-500 shadow-red-600 rounded-3xl font-bold hover:bg-emerald-400 hover:ring-emerald-700 hover:ring-4 hover:text-blue-800">Start Game</button>
+    <button onclick="resetGame" class="p-2 bg-red-900 text-emerald-500 shadow-red-600 rounded-3xl font-bold hover:bg-red-400 hover:ring-red-700 hover:ring-4 hover:text-emerald-800">Reset Game</button>
+  </div>
+</nav>
+<!-- <div>
+  <div class="bg-black text-white flex flex-row justify-between" *ngFor="let player of game.players; index as i">
     <div>{{ player.name }}</div>
-    <div><label>Health:</label>{{ player.champion.health }}</div>
+    <div class="text-center text-"><label>Health:</label>{{ player.champion.health }}</div>
     <div><label>Stamina:</label>{{ player.champion.stamina }}</div>
 
     <div>
-      <div>{{ game.player[i].modSlot }}</div>
-      <div>{{ game.player[i].moveSlot }}</div>
+      <div>ModSlot:- {{ player.modSlot }}</div>
+      <div>MoveSlot:- {{ player.moveSlot }}</div>
     </div>
 
     <div>
@@ -23,4 +27,39 @@
 
     <label>Deck Size: {{player.deck.length}}</label>
   </div>
+</div> -->
+
+<div *ngFor="let player of game.players; index as i" class="bg-black text-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ player.name }}</h2>
+      <p class="mt-2 text-lg leading-8 text-red-800">Health:- {{player.champion.health}}</p>
+      <p class="mt-2 text-lg leading-8 text-blue-800">Stamina:- {{player.champion.stamina}}</p>
+    </div>
+    <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <article class="flex max-w-xl flex-col items-start justify-between">
+        <div class="flex items-center gap-x-4 text-xs">
+          <span  class="text-gray-500 text-xl font-extrabold text-center">Deck Size:</span>
+          <span class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{player.deck.length}}</span>
+        </div>
+        <div class="group relative">
+          <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900">
+              <div class=" group-hover:text-gray-600">
+                MODSLOT :- {{player.modSlot}}<br>
+              </div>
+              <div class=" group-hover:text-gray-600">
+                MOVESLOT :- {{player.moveSlot}}<br>
+              </div>
+          </h3>
+          <p *ngFor="let card of player.hand; index as cardIndex" class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+            <input type="checkbox" onchange="updatePlayerChoice" [value]="cardIndex === player.modSlot || cardIndex === player.moveSlot" />
+              {{ card.name }}
+          </p>
+        </div>
+      </article>
+
+      <!-- More posts... -->
+    </div>
+  </div>
 </div>
+</body>
