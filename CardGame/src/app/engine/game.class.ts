@@ -51,7 +51,7 @@ export class GAME {
     // TODO fill this out
   }
 
-  private updatePlayerChoice(card:CARD,player:PLAYER) {
+  public updatePlayerChoice(card:CARD,player:PLAYER) {
 
     if(player.state = STATE.WAIT)
       {
@@ -64,6 +64,10 @@ export class GAME {
     // TODO fill this out
   }
 
+  public updatePlayerState(player:PLAYER)
+  {
+    player.state = STATE.READY
+  }
 
 
   private plan() {

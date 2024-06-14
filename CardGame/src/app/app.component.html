@@ -58,13 +58,14 @@
                 <input
                   type="checkbox"
                   name="{{ player.name }}"
-                  onchange="updatePlayerChoice"
-                  [value]="
+                  onchange="updatePlayerChoice(card,player)"
+                />
+                  <!-- [value]="
                     cardIndex === player.modSlot ||
                     cardIndex === player.moveSlot
                   "
-                />
-                <button>
+                /> -->
+                <button onclick="updatePlayerState(player)">
                   Execute
                 </button>
                 {{ card.name }}
