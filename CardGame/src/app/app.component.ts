@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   public game: GAME;
 
   ngOnInit(): void {
-    this.game = new GAME(2, 25);
+    this.game = new GAME(2, 7);
 
     this.main();
   }

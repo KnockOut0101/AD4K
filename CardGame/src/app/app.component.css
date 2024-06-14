@@ -1,0 +1,5 @@
+.playercontainer
+{
+    display: flex;
+    flex-direction: column;
+}

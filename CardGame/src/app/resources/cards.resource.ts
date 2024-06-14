@@ -1,12 +1,83 @@
-import { CARD } from "../components/card/card.class";
+import { config } from 'rxjs';
+import { CARD } from '../components/card/card.class';
+import {
+  COST,
+  MODS,
+  MOVES,
+  TARGET,
+  TYPE,
+} from '../components/card/card.definitions';
 
-export const CARD_OPTIONS: CARD[] = [
+export const CARD_OPTIONS: any[] = [
   // TODO fix this to properly fill out the relevant data
-  {name:'punch', stamina_cost:5, damage:10},
-  {name:'kick', stamina_cost:10, damage:15},
-  {name:'stun', stamina_cost:5, damage:0},
-  {name:'block', stamina_cost:5, damage:0},
-  {name:'dodge', stamina_cost:10, damage:0},
-  {name:'grapple', stamina_cost:15, damage:0},
-  {name:'counter', stamina_cost:15, damage:0},
+  {
+    index:0,
+    name: 'punch',
+    typeOption: MOVES.PUNCH,
+    costs: {[COST.STAMINA]: 5},
+    damage: {[COST.HEALTH] :-10},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:1,
+    name: 'kick',
+    typeOption: MOVES.KICK,
+    costs: {[COST.STAMINA]: 10},
+    damage: {[COST.HEALTH ]:-15},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:2,
+    name: 'stun',
+    typeOption: MOVES.STUN,
+    costs: {[COST.STAMINA]:5},
+    damage: {[COST.HEALTH]:0},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:3,
+    name: 'block',
+    typeOption: MOVES.BLOCK,
+    costs: {[COST.STAMINA]:5},
+    damage: {[COST.HEALTH]:0},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:4,
+    name: 'dodge',
+    typeOption: MOVES.DODGE,
+    costs: {[COST.STAMINA]:10},
+    damage: {[COST.HEALTH]:0},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:5,
+    name: 'grapple',
+    typeOption: MOVES.GRAPPLE,
+    costs: {[COST.STAMINA]:15},
+    damage: {[COST.HEALTH]:0},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
+  {
+    index:6,
+    name: 'counter',
+    typeOption: MOVES.COUNTER,
+    costs: {[COST.STAMINA]:15},
+    damage: {[COST.HEALTH]:0},
+    costTarget: TARGET.SELF,
+    damageTarget: TARGET.OPPONENT,
+    type: TYPE.MOVE,
+  },
 ];
