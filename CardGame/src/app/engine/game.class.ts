@@ -1,10 +1,15 @@
-import { CHAMPION } from "../components/champion/champion.class";
-import { PLAYER } from "../components/player/player.class";
-import { DECK_BUILDER } from "./deck.builder";
-import { STATE } from "./game.definitions";
-import { CARD } from "../components/card/card.class";
-import { COST, MODS, MOVES, TARGET, TYPE } from "../components/card/card.definitions"
-
+import { CHAMPION } from '../components/champion/champion.class';
+import { PLAYER } from '../components/player/player.class';
+import { DECK_BUILDER } from './deck.builder';
+import { STATE } from './game.definitions';
+import { CARD } from '../components/card/card.class';
+import {
+  COST,
+  MODS,
+  MOVES,
+  TARGET,
+  TYPE,
+} from '../components/card/card.definitions';
 
 export class GAME {
   public playersList: Array<PLAYER>;
@@ -16,9 +21,7 @@ export class GAME {
     this.deckSize = deckSize;
 
     for (let i = 0; i < playerCount; i++) {
-      this.playersList.push(
-        this.createPlayer('Player ' + (i + 1))
-      );
+      this.playersList.push(this.createPlayer('Player ' + (i + 1)));
     }
   }
 
@@ -27,48 +30,60 @@ export class GAME {
     temp.name = name;
     temp.deck = DECK_BUILDER.buildDeck(this.deckSize);
     temp.champion = new CHAMPION();
-    temp.hand = temp.deck.slice(0,5)
-    temp.cardIndex = 5
+    temp.hand = temp.deck.slice(0, 5);
+    temp.cardIndex = 5;
     temp.champion.name = name + ' Champion';
-    
+
     return temp;
   }
 
-  private startGame() {
-    
-  }
+  private startGame() {}
 
   private executeRound() {
-    if(this.gameState == STATE.EXECUTE){
-        for(let i=0;i<2;i++){
-          this.playersList[i].hand.push(this.playersList[i].deck[this.playersList[i].cardIndex])
-        }
+    if (this.gameState == STATE.EXECUTE) {
+      for (let i = 0; i < 2; i++) {
+        this.playersList[i].hand.push(
+          this.playersList[i].deck[this.playersList[i].cardIndex]
+        );
       }
+    }
     // TODO fill this out
   }
 
-  private resetGame() {
+  public resetGame() {
+    console.log('resetGame');
+    for (let i = 0; i < 2; i++) {
+      // set to 1000 for testing
+      this.playersList[i].champion.health = 1000;
+      this.playersList[i].champion.stamina = 1000;
+      this.playersList[i].energy = 1000;
+      this.playersList[i].deck = DECK_BUILDER.buildDeck(this.deckSize);
+      this.playersList[i].hand = this.playersList[i].deck.slice(0, 5);
+      this.playersList[i].cardIndex = 5;
+    }
     // TODO fill this out
   }
 
-  public updatePlayerChoice(card:CARD,player:PLAYER) {
+  public updatePlayerChoice(card: CARD, player: PLAYER) {
+    console.log('updatePlayerChoice');
 
-    if(player.state = STATE.WAIT)
-      {
-        if(card.type = TYPE.MOD)
-        {
-          // player.modSlot = player.deck.filter((deck: number) => deck == card.index)
-        } 
+    if ((player.state = STATE.WAIT)) {
+      if ((card.type = TYPE.MOD)) {
+        // player.modSlot = player.deck.filter((deck: number) => deck == card.index)
       }
+      if ((card.type = TYPE.MOVE)) {
+        // player.moveSlot = player.deck.filter((deck: number) => deck == card.index)
+      }
+    }
 
     // TODO fill this out
   }
 
-  public updatePlayerState(player:PLAYER)
-  {
-    player.state = STATE.READY
+  public updatePlayerState(player: PLAYER) {
+    console.log('updatePlayerState');
+    player.state = STATE.READY;
+    this.run();
   }
-
 
   private plan() {
     // TODO fill this out
@@ -76,15 +91,12 @@ export class GAME {
 
   private whoWon() {
     // TODO fill this out
-    if(this.playersList[0].champion.health == 0)
-    {
-      return this.playersList[1].name + 'WON'
+    if (this.playersList[0].champion.health == 0) {
+      return this.playersList[1].name + 'WON';
     }
-    if(this.playersList[1].champion.health == 0)
-      {
-        return this.playersList[0].name + 'WON'
-      }
-
+    if (this.playersList[1].champion.health == 0) {
+      return this.playersList[0].name + 'WON';
+    }
     return 'no one';
   }
 
@@ -105,11 +117,23 @@ export class GAME {
   }
 
   public run() {
-    switch(this.gameState) {
+    switch (this.gameState) {
       case STATE.PLAN:
         // allow the players to make their plans
         this.plan();
         this.state = STATE.WAIT;
+        break;
+      case STATE.WAIT:
+        console.log('CHECK CONTROL FLOW')
+        if (
+          this.playersList[0].state == STATE.READY &&
+          this.playersList[1].state == STATE.READY
+        ) {
+          console.log('CHECK CONTROL FLOW 1')
+          this.state = STATE.EXECUTE; // Need to discuss this furhter.
+        } else {
+          this.state = STATE.WAIT;
+        }
         break;
       case STATE.EXECUTE:
         // execute the card rules

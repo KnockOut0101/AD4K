@@ -4,7 +4,7 @@
 <body>
   <nav>
     <div>
-      <button onclick="resetGame">Reset Game</button>
+      <button class="button" (click)="this.game.resetGame()">Reset Game</button>
     </div>
   </nav>
   <!-- <div>
@@ -28,10 +28,13 @@
     <label>Deck Size: {{player.deck.length}}</label>
   </div>
 </div> -->
-  <div>
-    <div *ngFor="let player of game.players; index as i">
+  <div >
+    <div *ngFor="let player of game.players; index as i" class="playercontainer">
       <div>
-        <div class="playercontainer">
+        <div>
+          <button class="button" (click)="this.game.updatePlayerState(player)">
+            Execute
+          </button>
           <h3>
             {{ player.name }}
           </h3>
@@ -54,20 +57,17 @@
                 </h3>
               </div>
               <!-- <button type="checkbox" *ngFor="let card of player.hand" class="mt-5 bg-black text-xl p-2 m-2 leading-6 text-gray-600"> -->
-              <p *ngFor="let card of player.hand; index as cardIndex">
+              <p *ngFor="let card of player.hand; index as cardIndex" class="playercontainer">
                 <input
                   type="checkbox"
                   name="{{ player.name }}"
-                  onchange="updatePlayerChoice(card,player)"
+                  (click)="this.game.updatePlayerChoice(card,player)"
                 />
                   <!-- [value]="
                     cardIndex === player.modSlot ||
                     cardIndex === player.moveSlot
                   "
                 /> -->
-                <button onclick="updatePlayerState(player)">
-                  Execute
-                </button>
                 {{ card.name }}
               </p>
               <!-- </button> -->
