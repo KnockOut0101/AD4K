@@ -38,12 +38,15 @@ export class GAME {
   private startGame() {}
 
   private executeRound() {
-    if (this.gameState == STATE.EXECUTE) {
-      for (let i = 0; i < 2; i++) {
-        this.playersList[i].hand.push(
-          this.playersList[i].deck.pop()
-        );
-      }
+    if (this.gameState != STATE.EXECUTE) {
+      return;
+    }
+
+    // this should go in a draw phase/state
+    for (let i = 0; i < 2; i++) {
+      this.playersList[i].hand.push(
+        this.playersList[i].deck.pop()
+      );
     }
   }
 
@@ -55,7 +58,7 @@ export class GAME {
       this.playersList[i].champion.stamina = 1000;
       this.playersList[i].energy = 1000;
       this.playersList[i].deck = DECK_BUILDER.buildDeck(this.deckSize);
-      this.playersList[i].slots = [0, 0];
+      this.playersList[i].slots = [null, null];
     }
   }
 
@@ -66,7 +69,13 @@ export class GAME {
       return;
     }
 
-    player.slots[card.type] = handIndex;
+    if (player.slots[card.type] != null) {
+      player.hand.push(player.slots[card.type]);
+      player.slots[card.type] = null;
+    }
+
+    player.slots[card.type] = card;
+    player.hand.slice(handIndex, 1);
   }
 
   public updatePlayerState(player: PLAYER) {
