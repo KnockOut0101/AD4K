@@ -52,16 +52,16 @@
               </div>
               <div>
                 <h3>
-                  <div>MODSLOT :- {{ player.modSlot }}<br /></div>
-                  <div>MOVESLOT :- {{ player.moveSlot }}<br /></div>
+                  <div>MODSLOT :- {{ player.slots[CARD_TYPE.MOD] }}<br /></div>
+                  <div>MOVESLOT :- {{ player.slots[CARD_TYPE.MOVE] }}<br /></div>
                 </h3>
               </div>
               <!-- <button type="checkbox" *ngFor="let card of player.hand" class="mt-5 bg-black text-xl p-2 m-2 leading-6 text-gray-600"> -->
-              <p *ngFor="let card of player.hand; index as cardIndex" class="playercontainer">
+              <p *ngFor="let card of player.hand; index as handindex" class="playercontainer">
                 <input
                   type="checkbox"
                   name="{{ player.name }}"
-                  (click)="this.game.updatePlayerChoice(card,player)"
+                  (click)="this.game.updatePlayerChoice(card, handindex, player)"
                 />
                   <!-- [value]="
                     cardIndex === player.modSlot ||

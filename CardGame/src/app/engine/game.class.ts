@@ -30,8 +30,6 @@ export class GAME {
     temp.name = name;
     temp.deck = DECK_BUILDER.buildDeck(this.deckSize);
     temp.champion = new CHAMPION();
-    temp.hand = temp.deck.slice(0, 5);
-    temp.cardIndex = 5;
     temp.champion.name = name + ' Champion';
 
     return temp;
@@ -43,11 +41,10 @@ export class GAME {
     if (this.gameState == STATE.EXECUTE) {
       for (let i = 0; i < 2; i++) {
         this.playersList[i].hand.push(
-          this.playersList[i].deck[this.playersList[i].cardIndex]
+          this.playersList[i].deck.pop()
         );
       }
     }
-    // TODO fill this out
   }
 
   public resetGame() {
@@ -58,25 +55,18 @@ export class GAME {
       this.playersList[i].champion.stamina = 1000;
       this.playersList[i].energy = 1000;
       this.playersList[i].deck = DECK_BUILDER.buildDeck(this.deckSize);
-      this.playersList[i].hand = this.playersList[i].deck.slice(0, 5);
-      this.playersList[i].cardIndex = 5;
+      this.playersList[i].slots = [0, 0];
     }
-    // TODO fill this out
   }
 
-  public updatePlayerChoice(card: CARD, player: PLAYER) {
+  public updatePlayerChoice(card: CARD, handIndex: number, player: PLAYER) {
     console.log('updatePlayerChoice');
 
-    if ((player.state = STATE.WAIT)) {
-      if ((card.type = TYPE.MOD)) {
-        // player.modSlot = player.deck.filter((deck: number) => deck == card.index)
-      }
-      if ((card.type = TYPE.MOVE)) {
-        // player.moveSlot = player.deck.filter((deck: number) => deck == card.index)
-      }
+    if (player.state !== STATE.WAIT) {
+      return;
     }
 
-    // TODO fill this out
+    player.slots[card.type] = handIndex;
   }
 
   public updatePlayerState(player: PLAYER) {

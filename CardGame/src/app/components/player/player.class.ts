@@ -8,8 +8,7 @@ export class PLAYER {
   public deck: Array<CARD> = [];
   public champion: CHAMPION; 
   public hand: Array<CARD> = [];
-  public modSlot: number = 0;
-  public moveSlot: number = 0;
-  public cardIndex: number = 0;
+  public slots: Array<number> = [0, 0];
+  public discard: Array<CARD> = [];
   public state: STATE = STATE.WAIT;
 }
