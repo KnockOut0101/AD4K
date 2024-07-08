@@ -28,13 +28,13 @@
     <label>Deck Size: {{player.deck.length}}</label>
   </div>
 </div> -->
-  <div >
-    <div *ngFor="let player of game.players; index as i" class="playercontainer">
+  <div class="playercontainer">
+    <div *ngFor="let player of game.players; index as i">
       <div>
-        <div>
-          <button class="button" (click)="this.game.updatePlayerState(player)">
-            Execute
-          </button>
+        <button class="button" (click)="this.game.updatePlayerState(player)">
+          Execute
+        </button>
+        <div class="cardcontainer">
           <h3>
             {{ player.name }}
           </h3>
@@ -47,30 +47,35 @@
           <div>
             <article>
               <div>
-                <span>Deck Size:</span>
-                <span>{{ player.deck.length }}</span>
+                <span>Deck Size: </span>
+                <span>{{ player.deck.length }} </span>
+                <span>Discard Size: </span>
+                <span>{{ player.discard.length }} </span>
               </div>
-              <div>
+              <div style="margin: 10%;">
                 <h3>
-                  <div>MODSLOT :- {{ player.slots[CARD_TYPE.MOD] }}<br /></div>
-                  <div>MOVESLOT :- {{ player.slots[CARD_TYPE.MOVE] }}<br /></div>
+                  <div>MODSLOT :- {{ player.slots[CARD_TYPE.MOD]?.name }}<br /></div>
+                  <div>MOVESLOT :- {{ player.slots[CARD_TYPE.MOVE]?.name }}<br /></div>
                 </h3>
               </div>
-              <!-- <button type="checkbox" *ngFor="let card of player.hand" class="mt-5 bg-black text-xl p-2 m-2 leading-6 text-gray-600"> -->
-              <p *ngFor="let card of player.hand; index as handindex" class="playercontainer">
-                <input
-                  type="checkbox"
-                  name="{{ player.name }}"
-                  (click)="this.game.updatePlayerChoice(card, handindex, player)"
-                />
-                  <!-- [value]="
-                    cardIndex === player.modSlot ||
-                    cardIndex === player.moveSlot
-                  "
-                /> -->
-                {{ card.name }}
-              </p>
-              <!-- </button> -->
+              <div class="cardcontainer">
+                <!-- <button type="checkbox" *ngFor="let card of player.hand" class="mt-5 bg-black text-xl p-2 m-2 leading-6 text-gray-600"> -->
+                <p *ngFor="let card of player.hand; index as handindex;"  class="handcontainer">
+                  <input
+                    type="checkbox"
+                    name="{{ player.name }}"
+                    (click)="this.game.updatePlayerChoice(card, handindex, player)"
+                    [disabled]="player.state == PLAYER_STATE.READY || this.game.gameState != PLAYER_STATE.WAIT ? true : null"
+                  />
+                    <!-- [value]="
+                      cardIndex === player.modSlot ||
+                      cardIndex === player.moveSlot
+                    "
+                  /> -->
+                  {{ card.name }}
+                </p>
+                <!-- </button> -->
+              </div>
             </article>
             <!-- More posts... -->
           </div>

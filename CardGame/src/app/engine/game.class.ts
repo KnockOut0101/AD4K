@@ -10,17 +10,20 @@ import {
   TARGET,
   TYPE,
 } from '../components/card/card.definitions';
+import { CARD_OPTIONS } from '../resources/cards.resource';
 
 export class GAME {
   public playersList: Array<PLAYER>;
   public deckSize: number = 0;
   public gameState: STATE = STATE.NONE;
+  public handSize: number = 5;
+  public playercount : number = 2;
 
-  constructor(playerCount: number, deckSize: number) {
+  constructor(deckSize: number) {
     this.playersList = [];
     this.deckSize = deckSize;
 
-    for (let i = 0; i < playerCount; i++) {
+    for (let i = 0; i < this.playercount; i++) {
       this.playersList.push(this.createPlayer('Player ' + (i + 1)));
     }
   }
@@ -31,34 +34,81 @@ export class GAME {
     temp.deck = DECK_BUILDER.buildDeck(this.deckSize);
     temp.champion = new CHAMPION();
     temp.champion.name = name + ' Champion';
+    for (let i = 0; i < this.handSize; i++) {
+      temp.hand.push(temp.deck.pop());
+    }
 
+    console.log('HAND', temp.hand);
     return temp;
   }
 
-  private startGame() {}
+  private startGame() {
+    //this.gameState=STATE.PLAN
+  }
 
   private executeRound() {
     if (this.gameState != STATE.EXECUTE) {
       return;
     }
 
+    for (let i = 0; i < 2; i++) {
+      let currentplayer = this.playersList[i];
+      
+      if (i == 1) {
+        let opponent = this.playersList[0]
+        //STAMINA
+        currentplayer.champion.stamina =
+          currentplayer.champion.stamina -
+          currentplayer.slots[0].costs[1];
+        //HEALTH
+        currentplayer.champion.health=
+          currentplayer.champion.health +
+          currentplayer.slots[0].damage[0]
+        //HAND DEALING 
+        for (let i = currentplayer.hand.length-1; i < this.handSize; i++) {
+          currentplayer.hand.push(currentplayer.deck.pop());
+        }
+        //STATE CHANGE
+        currentplayer.state = STATE.PLAN
+        
+          
+      } else {
+        let opponent = this.playersList[1]
+        //STAMINA
+        currentplayer.champion.stamina =
+          currentplayer.champion.stamina -
+          currentplayer.slots[0].costs[1];
+        //HEALTH
+        currentplayer.champion.health=
+          currentplayer.champion.health +
+          currentplayer.slots[0].damage[0]
+        //HAND DEALING
+        for (let i = currentplayer.hand.length-1; i < this.handSize; i++) {
+          currentplayer.hand.push(currentplayer.deck.pop());
+        }
+        //STATE CHANGE
+        currentplayer.state = STATE.PLAN
+      }
+    }
+
     // this should go in a draw phase/state
     for (let i = 0; i < 2; i++) {
-      this.playersList[i].hand.push(
-        this.playersList[i].deck.pop()
-      );
+      this.playersList[i].discard.push(this.playersList[i]?.slots[0]);
+      //this.playersList[i].discard.push(this.playersList[i]?.slots[1]); // TBD
+      this.playersList[i].slots = [null, null];
     }
+
+    this.gameState = STATE.RESULT
+    this.run() 
   }
 
   public resetGame() {
     console.log('resetGame');
-    for (let i = 0; i < 2; i++) {
-      // set to 1000 for testing
-      this.playersList[i].champion.health = 1000;
-      this.playersList[i].champion.stamina = 1000;
-      this.playersList[i].energy = 1000;
-      this.playersList[i].deck = DECK_BUILDER.buildDeck(this.deckSize);
-      this.playersList[i].slots = [null, null];
+    this.playersList = [];
+    this.deckSize = this.deckSize;
+
+    for (let i = 0; i < this.playercount; i++) {
+      this.playersList.push(this.createPlayer('Player ' + (i + 1)));
     }
   }
 
@@ -75,7 +125,7 @@ export class GAME {
     }
 
     player.slots[card.type] = card;
-    player.hand.slice(handIndex, 1);
+    player.hand.splice(handIndex, 1);
   }
 
   public updatePlayerState(player: PLAYER) {
@@ -86,6 +136,8 @@ export class GAME {
 
   private plan() {
     // TODO fill this out
+    this.gameState = STATE.WAIT
+    this.run()
   }
 
   private whoWon() {
@@ -123,13 +175,15 @@ export class GAME {
         this.state = STATE.WAIT;
         break;
       case STATE.WAIT:
-        console.log('CHECK CONTROL FLOW')
+        console.log('CHECK CONTROL FLOW');
         if (
           this.playersList[0].state == STATE.READY &&
           this.playersList[1].state == STATE.READY
         ) {
-          console.log('CHECK CONTROL FLOW 1')
-          this.state = STATE.EXECUTE; // Need to discuss this furhter.
+          console.log('CHECK CONTROL FLOW 1');
+          this.state = STATE.EXECUTE;
+          this.run()
+          // Need to discuss this furhter.
         } else {
           this.state = STATE.WAIT;
         }

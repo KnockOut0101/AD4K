@@ -11,15 +11,20 @@ import { TYPE } from './components/card/card.definitions';
 export class AppComponent implements OnInit {
   public title = 'CardGame';
   public game: GAME;
+  public playerstate: any = STATE.READY;
 
   ngOnInit(): void {
-    this.game = new GAME(2, 7);
+    this.game = new GAME(7);
 
     this.main();
   }
 
   get CARD_TYPE() {
     return TYPE;
+  }
+
+  get PLAYER_STATE() {
+    return STATE;
   }
 
   public main() {
