@@ -65,7 +65,7 @@ export class GAME {
           currentplayer.champion.health +
           currentplayer.slots[0].damage[0]
         //HAND DEALING 
-        for (let i = currentplayer.hand.length-1; i < this.handSize; i++) {
+        for (let i = currentplayer.hand.length; i < this.handSize; i++) {
           currentplayer.hand.push(currentplayer.deck.pop());
         }
         //STATE CHANGE
@@ -83,7 +83,7 @@ export class GAME {
           currentplayer.champion.health +
           currentplayer.slots[0].damage[0]
         //HAND DEALING
-        for (let i = currentplayer.hand.length-1; i < this.handSize; i++) {
+        for (let i = currentplayer.hand.length; i < this.handSize; i++) {
           currentplayer.hand.push(currentplayer.deck.pop());
         }
         //STATE CHANGE
@@ -172,7 +172,7 @@ export class GAME {
       case STATE.PLAN:
         // allow the players to make their plans
         this.plan();
-        this.state = STATE.WAIT;
+        this.state = STATE.PLAN;
         break;
       case STATE.WAIT:
         console.log('CHECK CONTROL FLOW');

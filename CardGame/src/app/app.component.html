@@ -65,7 +65,7 @@
                     type="checkbox"
                     name="{{ player.name }}"
                     (click)="this.game.updatePlayerChoice(card, handindex, player)"
-                    [disabled]="player.state == PLAYER_STATE.READY || this.game.gameState != PLAYER_STATE.WAIT ? true : null"
+                    [disabled]="player.state == PLAYER_STATE.READY || this.game.gameState == PLAYER_STATE.WAIT ? true : null"
                   />
                     <!-- [value]="
                       cardIndex === player.modSlot ||

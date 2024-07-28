@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   public playerstate: any = STATE.READY;
 
   ngOnInit(): void {
-    this.game = new GAME(7);
+    this.game = new GAME(20);
 
     this.main();
   }
