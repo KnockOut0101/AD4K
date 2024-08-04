@@ -18,6 +18,8 @@ export class GAME {
   public gameState: STATE = STATE.NONE;
   public handSize: number = 5;
   public playercount : number = 2;
+  public winner: boolean = false;
+  public winning_statement: string = '';
 
   constructor(deckSize: number) {
     this.playersList = [];
@@ -69,7 +71,7 @@ export class GAME {
           currentplayer.hand.push(currentplayer.deck.pop());
         }
         //STATE CHANGE
-        currentplayer.state = STATE.PLAN
+        currentplayer.state = STATE.WAIT
         
           
       } else {
@@ -87,7 +89,7 @@ export class GAME {
           currentplayer.hand.push(currentplayer.deck.pop());
         }
         //STATE CHANGE
-        currentplayer.state = STATE.PLAN
+        currentplayer.state = STATE.WAIT
       }
     }
 
@@ -142,17 +144,21 @@ export class GAME {
 
   private whoWon() {
     // TODO fill this out
-    if (this.playersList[0].champion.health == 0) {
+    if (this.playersList[0].champion.health <= 0) {
       return this.playersList[1].name + 'WON';
     }
-    if (this.playersList[1].champion.health == 0) {
+    if (this.playersList[1].champion.health <= 0) {
       return this.playersList[0].name + 'WON';
     }
     return 'no one';
   }
 
-  private declareWinner() {
+  private declareWinner(statement) {
     // TODO fill this out
+    this.winner = true;
+    this.winning_statement = statement
+    this.playersList[1].state = STATE.READY;
+    this.playersList[0].state = STATE.READY;
   }
 
   private set state(newState: STATE) {
@@ -203,7 +209,7 @@ export class GAME {
         if (result === 'no one') {
           this.state = STATE.PLAN;
         } else {
-          this.declareWinner();
+          this.declareWinner(result);
           this.state = STATE.EXIT;
         }
         break;
